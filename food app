@@ -1,0 +1,70 @@
+import { useState } from "react";
+
+function App() {
+  const [foodName, setFoodName] = useState("");
+  const [foodPrice, setFoodPrice] = useState("");
+  const [foods, setFoods] = useState([]);
+
+  const addFood = () => {
+    if (foodName === "" || foodPrice === "") {
+      alert("Please fill all fields");
+      return;
+    }
+
+    const newFood = {
+      name: foodName,
+      price: foodPrice,
+    };
+
+    setFoods([...foods, newFood]);
+
+    setFoodName("");
+    setFoodPrice("");
+  };
+
+  return (
+    <div style={{ textAlign: "center", marginTop: "50px" }}>
+      <h1>Food Menu App</h1>
+
+      <input
+        type="text"
+        placeholder="Enter Food Name"
+        value={foodName}
+        onChange={(e) => setFoodName(e.target.value)}
+      />
+
+      <br /><br />
+
+      <input
+        type="number"
+        placeholder="Enter Price"
+        value={foodPrice}
+        onChange={(e) => setFoodPrice(e.target.value)}
+      />
+
+      <br /><br />
+
+      <button onClick={addFood}>Add Food</button>
+
+      <h2>Food List</h2>
+
+      {foods.map((food, index) => (
+        <div
+          key={index}
+          style={{
+            border: "1px solid black",
+            width: "300px",
+            margin: "10px auto",
+            padding: "10px",
+            borderRadius: "10px",
+          }}
+        >
+          <h3>{food.name}</h3>
+          <p>Price: ₹{food.price}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default App;
